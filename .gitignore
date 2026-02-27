@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+
+# Local runtime configuration (contains environment-specific values)
+platform.auto.tfvars
+platform.auto.tfvars.json
+
+# Terraform local state/artifacts
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log

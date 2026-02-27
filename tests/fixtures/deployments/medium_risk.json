@@ -1,0 +1,20 @@
+{
+  "service_name": "orders-api",
+  "environment": "staging",
+  "branch": "feat/new-discount-flow",
+  "commit_sha": "def67890feedface",
+  "commit_message": "Add new discount flow",
+  "commit_author": "John Smith",
+  "commit_author_email": "john.smith@example.com",
+  "changed_files": [
+    "src/orders/discounts.py",
+    "src/orders/models.py"
+  ],
+  "lines_added": 350,
+  "lines_deleted": 40,
+  "deploy_hour": 14,
+  "deploy_day": 3,
+  "build_url": "https://jenkins.example.com/job/orders/456",
+  "coverage_delta": 0.0
+}
+

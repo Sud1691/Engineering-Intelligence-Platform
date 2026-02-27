@@ -1,0 +1,33 @@
+# ============================================================================
+# Engineering Intelligence Platform (EIP) - Platform Module Variables
+# Copy this file to `platform.auto.tfvars` and customize per environment.
+# ============================================================================
+
+# Runtime mode: "stub" for local dev, "live" for real integrations
+eip_runtime_mode = "stub"
+
+# Guard to prevent accidental live execution
+eip_enable_live_mode = false
+
+# AWS and core infrastructure object names
+eip_aws_region = "us-east-1"
+eip_event_bus_name = "eip-event-bus-dev"
+eip_deployments_table_name = "eip-deployments-dev"
+eip_risk_scores_table_name = "eip-risk-scores-dev"
+eip_incidents_table_name = "eip-incidents-dev"
+
+# Secret names
+eip_integrations_secret_name = "eip/integrations/dev"
+
+# Integrations defaults
+eip_slack_default_channel = "#eip-dev-alerts"
+
+# Incident->deployment correlation window for feedback loop
+eip_incident_link_window_hours = 2
+
+# Terraform provisioning controls (used by infra/terraform module)
+# Keep false in local stub mode.
+provision_core_resources = false
+create_worker_role = false
+create_integrations_secret = false
+create_integrations_secret_version = false

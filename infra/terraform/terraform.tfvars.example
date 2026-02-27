@@ -1,0 +1,19 @@
+# EIP Terraform module example overrides.
+# You can keep using ../../platform.auto.tfvars instead of this file.
+
+eip_runtime_mode = "live"
+eip_enable_live_mode = true
+eip_aws_region = "us-east-1"
+
+eip_event_bus_name = "eip-event-bus-dev"
+eip_deployments_table_name = "eip-deployments-dev"
+eip_risk_scores_table_name = "eip-risk-scores-dev"
+eip_incidents_table_name = "eip-incidents-dev"
+eip_integrations_secret_name = "eip/integrations/dev"
+
+provision_core_resources = true
+create_worker_role = true
+create_integrations_secret = true
+create_integrations_secret_version = false
+
+environment = "dev"

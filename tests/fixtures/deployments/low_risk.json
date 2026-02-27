@@ -1,0 +1,19 @@
+{
+  "service_name": "internal-dashboard",
+  "environment": "dev",
+  "branch": "chore/update-copy",
+  "commit_sha": "9876abcd1234efef",
+  "commit_message": "Update dashboard copy",
+  "commit_author": "Alex Lee",
+  "commit_author_email": "alex.lee@example.com",
+  "changed_files": [
+    "src/dashboard/templates/home.html"
+  ],
+  "lines_added": 10,
+  "lines_deleted": 2,
+  "deploy_hour": 11,
+  "deploy_day": 2,
+  "build_url": "https://jenkins.example.com/job/dashboard/789",
+  "coverage_delta": 1.2
+}
+

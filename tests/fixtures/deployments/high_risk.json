@@ -1,0 +1,20 @@
+{
+  "service_name": "payments-api",
+  "environment": "production",
+  "branch": "hotfix/critical-bug",
+  "commit_sha": "abc12345deadbeef",
+  "commit_message": "Hotfix: critical payments bug",
+  "commit_author": "Jane Doe",
+  "commit_author_email": "jane.doe@example.com",
+  "changed_files": [
+    "database/migrations/001_add_column.sql",
+    "src/payment/processor.py"
+  ],
+  "lines_added": 1200,
+  "lines_deleted": 50,
+  "deploy_hour": 19,
+  "deploy_day": 5,
+  "build_url": "https://jenkins.example.com/job/payments/123",
+  "coverage_delta": -3.5
+}
+

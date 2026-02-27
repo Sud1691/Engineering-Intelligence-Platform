@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1050" viewBox="0 0 1900 1050">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/>
+    </marker>
+    <style>
+      .title { font: 700 30px Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 400 16px Arial, sans-serif; fill: #334155; }
+      .node-title { font: 700 15px Arial, sans-serif; fill: #0f172a; }
+      .node-sub { font: 400 12px Arial, sans-serif; fill: #334155; }
+      .edge { stroke: #334155; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+      .dashed { stroke-dasharray: 8 6; }
+      .box { rx: 10; ry: 10; stroke: #94a3b8; stroke-width: 1.8; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1900" height="1050" fill="#f8fafc"/>
+  <text x="40" y="46" class="title">Engineering Intelligence Platform (EIP) - Architecture Overview</text>
+  <text x="40" y="74" class="subtitle">Stub-mode operational architecture with live-mode substitution points</text>
+
+  <rect class="box" x="60" y="120" width="250" height="90" fill="#e2e8f0"/>
+  <text x="82" y="156" class="node-title">User / Platform Consumer</text>
+  <text x="82" y="180" class="node-sub">CLI / API clients / UI</text>
+
+  <rect class="box" x="370" y="120" width="360" height="90" fill="#dbeafe"/>
+  <text x="392" y="156" class="node-title">FastAPI API Layer</text>
+  <text x="392" y="180" class="node-sub">eip/api/main.py + routers</text>
+
+  <rect class="box" x="60" y="260" width="250" height="90" fill="#e2e8f0"/>
+  <text x="82" y="296" class="node-title">Workers / Async Flows</text>
+  <text x="82" y="320" class="node-sub">deployment, incident, cost, graph</text>
+
+  <rect class="box" x="790" y="40" width="280" height="70" fill="#fee2e2"/>
+  <text x="810" y="70" class="node-title">Pillar 1: Risk Engine</text>
+  <text x="810" y="90" class="node-sub">scorer + explainer</text>
+
+  <rect class="box" x="790" y="130" width="280" height="70" fill="#ffedd5"/>
+  <text x="810" y="160" class="node-title">Pillar 2: Architecture Map</text>
+  <text x="810" y="180" class="node-sub">graph + query engine</text>
+
+  <rect class="box" x="790" y="220" width="280" height="70" fill="#fef9c3"/>
+  <text x="810" y="250" class="node-title">Pillar 3: Incident Intel</text>
+  <text x="810" y="270" class="node-sub">linking + patterns + trajectory</text>
+
+  <rect class="box" x="790" y="310" width="280" height="70" fill="#dcfce7"/>
+  <text x="810" y="340" class="node-title">Pillar 4: Cost Intel</text>
+  <text x="810" y="360" class="node-sub">anomalies + optimizer + reports</text>
+
+  <rect class="box" x="790" y="400" width="280" height="70" fill="#e0f2fe"/>
+  <text x="810" y="430" class="node-title">Pillar 5: Compliance</text>
+  <text x="810" y="450" class="node-sub">scanner + policy + drift</text>
+
+  <rect class="box" x="790" y="490" width="280" height="70" fill="#ede9fe"/>
+  <text x="810" y="520" class="node-title">NLQ Engine</text>
+  <text x="810" y="540" class="node-sub">intent + synthesis</text>
+
+  <rect class="box" x="1140" y="235" width="280" height="95" fill="#fae8ff"/>
+  <text x="1162" y="272" class="node-title">Provider Registry</text>
+  <text x="1162" y="296" class="node-sub">select stub/live providers</text>
+  <text x="1162" y="314" class="node-sub">response metadata</text>
+
+  <rect class="box" x="1490" y="180" width="320" height="90" fill="#f0fdf4"/>
+  <text x="1512" y="216" class="node-title">Stub Providers (Current)</text>
+  <text x="1512" y="240" class="node-sub">deterministic fixture-like data</text>
+
+  <rect class="box" x="1490" y="320" width="320" height="90" fill="#fff7ed"/>
+  <text x="1512" y="356" class="node-title">Live Providers (Pending)</text>
+  <text x="1512" y="380" class="node-sub">real AWS + external integrations</text>
+
+  <rect class="box" x="370" y="560" width="360" height="110" fill="#f1f5f9"/>
+  <text x="392" y="596" class="node-title">Config Layer</text>
+  <text x="392" y="620" class="node-sub">platform.auto.tfvars + env vars</text>
+  <text x="392" y="642" class="node-sub">eip/core/settings.py</text>
+
+  <rect class="box" x="790" y="620" width="260" height="90" fill="#f8fafc"/>
+  <text x="812" y="656" class="node-title">Event Bus Wrapper</text>
+  <text x="812" y="680" class="node-sub">EventBridge / stub log emit</text>
+
+  <rect class="box" x="1100" y="620" width="280" height="90" fill="#f8fafc"/>
+  <text x="1122" y="656" class="node-title">Store Layers</text>
+  <text x="1122" y="680" class="node-sub">HistoricalDB + IncidentDB</text>
+
+  <rect class="box" x="1430" y="620" width="280" height="90" fill="#f8fafc"/>
+  <text x="1452" y="656" class="node-title">Secrets Wrapper</text>
+  <text x="1452" y="680" class="node-sub">Secrets Manager / stub values</text>
+
+  <rect class="box" x="1100" y="500" width="280" height="90" fill="#f8fafc"/>
+  <text x="1122" y="536" class="node-title">LLM Wrapper</text>
+  <text x="1122" y="560" class="node-sub">Anthropic live or stub JSON</text>
+
+  <rect class="box" x="1490" y="500" width="320" height="90" fill="#f8fafc"/>
+  <text x="1512" y="536" class="node-title">External Systems (Live)</text>
+  <text x="1512" y="560" class="node-sub">AWS, Slack, PagerDuty, Jenkins</text>
+
+  <path class="edge" d="M 310 165 L 370 165"/>
+  <path class="edge" d="M 310 305 L 370 165"/>
+
+  <path class="edge" d="M 730 165 L 790 75"/>
+  <path class="edge" d="M 730 165 L 790 165"/>
+  <path class="edge" d="M 730 165 L 790 255"/>
+  <path class="edge" d="M 730 165 L 790 345"/>
+  <path class="edge" d="M 730 165 L 790 435"/>
+  <path class="edge" d="M 730 165 L 790 525"/>
+
+  <path class="edge" d="M 730 165 L 1140 282"/>
+  <path class="edge" d="M 310 305 L 1140 282"/>
+  <path class="edge" d="M 1070 525 L 1100 545"/>
+  <path class="edge" d="M 1070 255 L 1100 665"/>
+  <path class="edge" d="M 1070 75 L 1100 665"/>
+
+  <path class="edge" d="M 1420 282 L 1490 225"/>
+  <path class="edge dashed" d="M 1420 282 L 1490 365"/>
+  <text x="1428" y="338" class="node-sub">future switch</text>
+
+  <path class="edge" d="M 730 615 L 790 665"/>
+  <path class="edge" d="M 730 615 L 1100 665"/>
+  <path class="edge" d="M 730 615 L 1430 665"/>
+  <path class="edge" d="M 730 615 L 1140 282"/>
+
+  <path class="edge" d="M 1810 365 L 1810 545"/>
+  <path class="edge" d="M 1810 225 L 1810 545"/>
+</svg>

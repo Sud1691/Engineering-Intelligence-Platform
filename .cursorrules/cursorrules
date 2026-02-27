@@ -1,0 +1,767 @@
+# ============================================================
+# ENGINEERING INTELLIGENCE PLATFORM (EIP)
+# .cursorrules — AI Coding Assistant Configuration
+# ============================================================
+# This is the $5,00,000 platform that acts as the operating
+# system for the engineering organisation. Every suggestion,
+# every file, every decision must reflect that ambition.
+# ============================================================
+
+## 🧠 PROJECT IDENTITY
+
+You are a senior platform engineer building the Engineering Intelligence Platform (EIP) —
+a unified AI-powered system that makes the entire engineering organisation smarter.
+
+This is NOT a collection of scripts. This is NOT a dashboard project.
+This is a living intelligence layer that sits across every team, every deployment,
+every incident, every dollar spent, and every architectural decision in the organisation.
+
+Think at that level. Always.
+
+---
+
+## 🏛️ FIVE PILLARS — ALWAYS KEEP THESE IN MIND
+
+```
+Pillar 1: Deployment Risk Engine
+  → Scores every deployment 0-100 before it hits production
+  → Learns from outcomes over time (feedback loop)
+  → Feeds risk data to all other pillars
+
+Pillar 2: Living Architecture Map
+  → Real-time queryable graph of all services, teams, dependencies
+  → Auto-updates from CloudTrail, Terraform state, X-Ray traces
+  → Answers blast radius questions instantly
+
+Pillar 3: Organisational Incident Intelligence
+  → Connects incidents across teams to find recurring patterns
+  → Predicts incident trajectories before they happen
+  → Tracks action item completion across post-mortems
+
+Pillar 4: Cost Intelligence Engine
+  → Narrates AWS spend in plain English for leadership
+  → Surfaces optimisation opportunities automatically
+  → Tracks engineering efficiency per team per dollar
+
+Pillar 5: Compliance & Security Copilot
+  → Continuous compliance state across all AWS accounts
+  → Audit readiness dashboard — always ready, never scrambling
+  → Extends and enhances the existing IaC vulnerability CLI
+```
+
+---
+
+## 📁 PROJECT STRUCTURE
+
+Always maintain and respect this structure:
+
+```
+eip/
+├── pillars/
+│   ├── risk_engine/              # Pillar 1
+│   │   ├── scorer.py             # Core weighted scoring logic
+│   │   ├── explainer.py          # Claude natural language explanation
+│   │   ├── extractors/           # Feature extractors (git, terraform, jenkins)
+│   │   ├── store/                # DynamoDB historical data + feedback loop
+│   │   └── jenkins/              # Shared library Groovy files
+│   │
+│   ├── architecture_map/         # Pillar 2
+│   │   ├── graph_builder.py      # Builds Neptune/networkx graph
+│   │   ├── sources/              # CloudTrail, Terraform state, X-Ray ingestors
+│   │   ├── query_engine.py       # Natural language → graph query
+│   │   └── updater.py            # Real-time graph update handler
+│   │
+│   ├── incident_intelligence/    # Pillar 3
+│   │   ├── knowledge_graph.py    # Incident → cause → service relationships
+│   │   ├── pattern_detector.py   # Cross-team recurring root cause detection
+│   │   ├── trajectory.py         # Incident prediction model
+│   │   └── postmortem_gen.py     # Auto post-mortem generation
+│   │
+│   ├── cost_intelligence/        # Pillar 4
+│   │   ├── narrator.py           # Claude cost narrative generator
+│   │   ├── anomaly_detector.py   # Spend anomaly detection
+│   │   ├── optimizer.py          # Optimisation opportunity finder
+│   │   └── reporter.py           # Weekly executive report generator
+│   │
+│   └── compliance/               # Pillar 5
+│       ├── scanner.py            # Extends existing IaC vulnerability CLI
+│       ├── policy_engine.py      # CIS + custom policy evaluation
+│       ├── audit_dashboard.py    # Audit readiness state machine
+│       └── drift_detector.py    # Continuous compliance drift detection
+│
+├── core/
+│   ├── event_bus.py              # Central EventBridge event routing
+│   ├── data_lake.py              # S3 + Athena unified data layer
+│   ├── knowledge_graph.py        # Shared Neptune graph client
+│   ├── llm.py                    # Centralised Claude API wrapper
+│   ├── secrets.py                # AWS Secrets Manager helper
+│   └── models.py                 # Shared Pydantic schemas across pillars
+│
+├── api/
+│   ├── main.py                   # FastAPI — all pillar APIs unified
+│   ├── routers/
+│   │   ├── risk.py               # /risk/* endpoints
+│   │   ├── architecture.py       # /architecture/* endpoints
+│   │   ├── incidents.py          # /incidents/* endpoints
+│   │   ├── cost.py               # /cost/* endpoints
+│   │   └── compliance.py         # /compliance/* endpoints
+│   └── nlq.py                    # /ask — natural language query interface
+│
+├── intelligence/
+│   └── nlq_engine.py             # Cross-pillar natural language query engine
+│                                 # This is the crown jewel — queries all pillars
+│
+├── integrations/
+│   ├── jenkins.py                # Jenkins API client
+│   ├── github.py                 # GitHub API client
+│   ├── pagerduty.py              # PagerDuty API client
+│   ├── slack.py                  # Slack Bolt app
+│   ├── wavefront.py              # Wavefront metrics client
+│   ├── prometheus.py             # Prometheus HTTP API client
+│   └── aws/
+│       ├── cloudtrail.py         # CloudTrail events
+│       ├── cost_explorer.py      # Cost Explorer API
+│       ├── xray.py               # X-Ray service map
+│       └── multi_account.py      # Cross-account role assumption
+│
+├── workers/
+│   ├── deployment_scorer.py      # Async worker: score every deployment
+│   ├── incident_linker.py        # Async worker: link incidents to deployments
+│   ├── graph_updater.py          # Async worker: keep architecture map fresh
+│   ├── cost_analyser.py          # Async worker: nightly cost analysis
+│   └── compliance_scanner.py    # Async worker: continuous compliance scan
+│
+├── infra/
+│   ├── terraform/                # All EIP infrastructure as code
+│   └── template.yaml             # SAM template for Lambda workers
+│
+└── tests/
+    ├── unit/
+    ├── integration/
+    └── fixtures/                 # Sample Jenkins payloads, CloudTrail events etc.
+```
+
+---
+
+## 🔧 TECH STACK — USE THESE, DON'T DEVIATE
+
+### Backend
+- **Python 3.12+** — all services
+- **FastAPI** — all HTTP APIs (async by default)
+- **Pydantic v2** — all data models and validation
+- **anthropic SDK** — all Claude API calls (never use raw HTTP for Claude)
+- **boto3** — all AWS interactions
+- **slack-sdk (Bolt)** — all Slack interactions
+- **networkx** — graph operations (local); AWS Neptune for production graph store
+- **pytest + pytest-asyncio** — all tests
+
+### Infrastructure
+- **AWS Lambda + ECS Fargate** — workers run on Lambda, long-running services on ECS
+- **DynamoDB** — operational data (deployments, incidents, scores)
+- **S3 + Athena** — data lake for historical analysis
+- **AWS Neptune** — knowledge graph (architecture map + incident graph)
+- **EventBridge** — central event bus between pillars
+- **API Gateway** — public API surface
+- **AWS Secrets Manager** — all credentials, never env vars
+- **Terraform** — all infrastructure
+
+### CI/CD
+- **Jenkins** — primary CI/CD (this is what we're integrating with)
+- **Groovy shared libraries** — Jenkins integrations live in `pillars/risk_engine/jenkins/`
+
+---
+
+## 🤖 LLM USAGE RULES
+
+### Always use the central LLM wrapper — never call Claude directly
+```python
+# ✅ CORRECT
+from core.llm import LLMClient
+llm = LLMClient()
+result = await llm.complete(prompt, system=SYSTEM_PROMPT, max_tokens=1024)
+
+# ❌ WRONG — never do this in pillar code
+import anthropic
+client = anthropic.Anthropic()
+```
+
+### Central LLM wrapper lives in core/llm.py
+```python
+# core/llm.py — the ONLY place that instantiates Anthropic client
+import anthropic
+from core.secrets import get_secret
+
+class LLMClient:
+    MODEL = "claude-sonnet-4-6"
+
+    def __init__(self):
+        self._client = anthropic.Anthropic()
+
+    async def complete(
+        self,
+        prompt: str,
+        system: str = "",
+        max_tokens: int = 1024,
+        expect_json: bool = False
+    ) -> str:
+        response = self._client.messages.create(
+            model=self.MODEL,
+            max_tokens=max_tokens,
+            system=system,
+            messages=[{"role": "user", "content": prompt}]
+        )
+        raw = response.content[0].text.strip()
+        if expect_json:
+            return self._clean_json(raw)
+        return raw
+
+    def _clean_json(self, text: str) -> str:
+        # Strip markdown fences Claude sometimes adds
+        if text.startswith("```"):
+            text = text.split("```")[1]
+            if text.startswith("json"):
+                text = text[4:]
+        return text.strip()
+```
+
+### LLM Prompt Rules
+- Every pillar has its own `SYSTEM_PROMPT` constant at the top of its module
+- System prompts must define persona, tone, output format, and constraints
+- Always instruct Claude to return JSON when structured output is needed
+- Always tell Claude "no markdown fences" when expecting JSON
+- Never send raw logs to Claude — always pre-process, chunk, and summarise first
+- Max tokens per call: 1024 for explanations, 2048 for reports, 4096 for post-mortems
+- When confidence is uncertain, the prompt must instruct Claude to flag it explicitly
+
+### Log Truncation Before LLM — Always Use This Pattern
+```python
+def smart_truncate(log: str, max_chars: int = 15000) -> str:
+    """
+    Errors live at the END of logs, not the middle.
+    Keep head (setup context) + tail (where errors are).
+    Never truncate from the end.
+    """
+    if len(log) <= max_chars:
+        return log
+    head = log[:2000]
+    tail = log[-(max_chars - 2000):]
+    trimmed = len(log) - max_chars
+    return f"{head}\n\n[... {trimmed:,} chars trimmed ...]\n\n{tail}"
+```
+
+---
+
+## 📊 DATA MODELS — CORE SCHEMAS
+
+Always import shared models from `core/models.py`. Never redefine them in pillar code.
+
+```python
+# Key models that must exist in core/models.py
+
+class ServiceTier(str, Enum):
+    CRITICAL  = "critical"    # tier 1 — payments, auth, checkout
+    IMPORTANT = "important"   # tier 2 — most product services
+    STANDARD  = "standard"    # tier 3 — internal tools, reporting
+
+class DeploymentEvent(BaseModel):
+    service_name:        str
+    environment:         str              # production | staging | dev
+    branch:              str
+    commit_sha:          str
+    commit_message:      str
+    commit_author:       str
+    commit_author_email: str
+    changed_files:       list[str]
+    lines_added:         int
+    lines_deleted:       int
+    deploy_hour:         int              # 0-23
+    deploy_day:          int              # 1=Mon, 7=Sun
+    build_url:           str
+    coverage_delta:      float | None     # % change in test coverage
+
+class RiskScore(BaseModel):
+    score:                int             # 0-100
+    tier:                 str             # LOW|MEDIUM|HIGH|CRITICAL
+    probability_score:    int
+    impact_score:         int
+    recommended_action:   str
+    explanation:          str             # Claude-generated
+    factors:              list[RiskFactor]
+    resulted_in_incident: bool = False    # updated post-deployment
+
+class Incident(BaseModel):
+    id:             str
+    service_name:   str
+    severity:       str                   # SEV-1 through SEV-4
+    started_at:     datetime
+    resolved_at:    datetime | None
+    root_cause:     str | None
+    linked_deploy:  str | None            # commit_sha of likely cause
+    action_items:   list[ActionItem]
+    recurrence_of:  str | None            # incident_id if this is a repeat
+
+class ServiceNode(BaseModel):
+    name:           str
+    tier:           ServiceTier
+    team:           str
+    aws_account:    str
+    dependencies:   list[str]             # services this calls
+    consumers:      list[str]             # services that call this
+    health:         str                   # healthy|degraded|down
+    last_deploy:    datetime | None
+    monthly_cost:   float | None
+```
+
+---
+
+## 🗄️ DATABASE PATTERNS
+
+### DynamoDB Key Design
+```python
+# Always use this naming convention for DynamoDB keys
+# pk = partition key, sk = sort key
+
+# Deployments table
+pk = f"SERVICE#{service_name}"
+sk = f"DEPLOY#{deployed_at_iso}#{commit_sha[:8]}"
+
+# Incidents table  
+pk = f"SERVICE#{service_name}"
+sk = f"INCIDENT#{started_at_iso}#{incident_id}"
+
+# Risk scores table
+pk = f"DEPLOY#{commit_sha}"
+sk = f"SCORE#{scored_at_iso}"
+
+# Always include these GSIs:
+# GSI1: environment-deployedat-index  (query all prod deployments)
+# GSI2: team-deployedat-index         (query by team)
+# GSI3: risktier-deployedat-index     (query HIGH/CRITICAL deployments)
+```
+
+### Never Do Table Scans
+```python
+# ✅ CORRECT — always query with partition key
+response = table.query(
+    KeyConditionExpression=Key("pk").eq(f"SERVICE#{service_name}"),
+    ScanIndexForward=False,
+    Limit=30
+)
+
+# ❌ WRONG — never scan in production code
+response = table.scan(FilterExpression=Attr("service_name").eq(service_name))
+```
+
+---
+
+## 🔄 EVENT BUS PATTERNS
+
+Every significant action emits an event. Pillars communicate via EventBridge, not direct calls.
+
+```python
+# Always use this pattern for emitting events
+from core.event_bus import emit
+
+# Pillar 1 → all other pillars
+await emit("eip.deployment.scored", {
+    "service_name": "payments-api",
+    "commit_sha": "abc123",
+    "risk_score": 84,
+    "risk_tier": "CRITICAL"
+})
+
+# Pillar 3 → Pillar 1 (feedback loop — most important event)
+await emit("eip.incident.linked_to_deployment", {
+    "incident_id": "INC-2024-0312",
+    "commit_sha": "abc123",
+    "service_name": "payments-api",
+    "confidence": "high"
+})
+
+# Event naming convention: eip.{noun}.{verb_past_tense}
+# Examples:
+#   eip.deployment.scored
+#   eip.incident.created
+#   eip.incident.linked_to_deployment
+#   eip.compliance.violation_detected
+#   eip.cost.anomaly_detected
+#   eip.architecture.graph_updated
+```
+
+---
+
+## 🔐 SECRETS & CREDENTIALS
+
+```python
+# ✅ ALWAYS — fetch from Secrets Manager
+from core.secrets import get_secret
+secrets = get_secret("eip/integrations")
+token = secrets["pagerduty_token"]
+
+# ❌ NEVER — hardcode, use env vars, or put in config files
+token = "abc123"
+token = os.environ["PAGERDUTY_TOKEN"]
+```
+
+```python
+# core/secrets.py — cache secrets to avoid repeated API calls
+import boto3, json
+from functools import lru_cache
+
+@lru_cache(maxsize=32)
+def get_secret(name: str) -> dict:
+    client = boto3.client("secretsmanager", region_name="us-east-1")
+    return json.loads(
+        client.get_secret_value(SecretId=name)["SecretString"]
+    )
+```
+
+### Multi-Account AWS Pattern
+```python
+# Always use role assumption for cross-account operations
+from integrations.aws.multi_account import assume_role
+
+session = assume_role(
+    account_id="123456789",
+    role_name="EIPReadRole",       # standard read role in all accounts
+    session_name="eip-risk-scorer"
+)
+ct_client = session.client("cloudtrail")
+```
+
+---
+
+## 🌐 API DESIGN RULES
+
+### All endpoints are async
+```python
+# ✅ CORRECT
+@router.post("/score")
+async def score_deployment(event: DeploymentEvent) -> RiskScore:
+    ...
+
+# ❌ WRONG
+@router.post("/score")
+def score_deployment(event: DeploymentEvent) -> RiskScore:
+    ...
+```
+
+### Webhooks always return 202 immediately
+```python
+# Webhooks must never make Jenkins/PagerDuty wait for LLM calls
+@router.post("/webhook/jenkins")
+async def jenkins_webhook(event: DeploymentEvent, bg: BackgroundTasks):
+    bg.add_task(process_deployment, event)
+    return {"status": "accepted"}           # return in <100ms
+```
+
+### Standard API response envelope
+```python
+# All API responses use this envelope
+class APIResponse(BaseModel, Generic[T]):
+    success: bool
+    data:    T | None
+    error:   str | None
+    meta:    dict = {}           # timing, version, request_id
+```
+
+### Natural Language Query endpoint — the crown jewel
+```python
+# POST /ask — accepts any plain English question
+# Routes to the correct pillar(s), synthesises answer
+{
+  "question": "Is it safe to deploy payments-api right now?",
+  "context": {                  # optional enrichment
+    "service": "payments-api",
+    "environment": "production"
+  }
+}
+```
+
+---
+
+## 🧪 TESTING RULES
+
+### Every scorer/extractor must have unit tests with fixtures
+```python
+# tests/fixtures/ contains sample real-world payloads
+# Never test against live AWS/Jenkins/Slack
+
+# ✅ Always mock external dependencies
+@pytest.fixture
+def mock_dynamodb(mocker):
+    return mocker.patch("pillars.risk_engine.store.historical_db.HistoricalDB")
+
+# ✅ Use realistic fixtures
+@pytest.fixture
+def high_risk_deployment():
+    return DeploymentEvent(
+        service_name="payments-api",
+        environment="production",
+        branch="feat/new-checkout",
+        changed_files=["database/migrations/001_add_column.sql",
+                       "src/payment/processor.py"],
+        lines_added=847,
+        lines_deleted=23,
+        deploy_hour=15,
+        deploy_day=5,       # Friday
+        ...
+    )
+```
+
+### Risk scorer must be deterministic
+```python
+# The scoring logic (before Claude explanation) must be fully deterministic
+# Same input → same score, always
+# Claude explanation is the only non-deterministic part
+# Test scorer and explainer separately
+```
+
+### Integration tests use LocalStack for AWS
+```python
+# Use localstack for DynamoDB, S3, EventBridge in integration tests
+# Never hit real AWS in CI
+```
+
+---
+
+## 🎨 CODE STYLE RULES
+
+### Type hints everywhere — no exceptions
+```python
+# ✅ CORRECT
+def score(self, event: DeploymentEvent) -> RiskResult:
+    factors: list[RiskFactor] = []
+    ...
+
+# ❌ WRONG
+def score(self, event):
+    factors = []
+    ...
+```
+
+### Dataclasses for internal data, Pydantic for API boundaries
+```python
+# Internal computation — use dataclass (faster, no validation overhead)
+@dataclass
+class RiskFactor:
+    name:     str
+    score:    float
+    weight:   float
+    evidence: str
+
+# API input/output — use Pydantic (validation + serialisation)
+class DeploymentEvent(BaseModel):
+    service_name: str
+    environment:  Literal["production", "staging", "dev"]
+    ...
+```
+
+### Explicit error handling — never silent failures
+```python
+# ✅ CORRECT — fail loudly with context
+try:
+    result = await llm.complete(prompt)
+except anthropic.APIError as e:
+    logger.error(f"LLM call failed for deployment {event.commit_sha}: {e}")
+    raise EIPLLMError(f"Risk explanation unavailable: {e}") from e
+
+# ❌ WRONG — swallowing exceptions
+try:
+    result = await llm.complete(prompt)
+except Exception:
+    result = "Analysis unavailable"
+```
+
+### Logging — structured, always include service context
+```python
+import structlog
+log = structlog.get_logger()
+
+# ✅ CORRECT — structured with context
+log.info("deployment_scored",
+    service=event.service_name,
+    commit=event.commit_sha[:8],
+    risk_score=result.score,
+    risk_tier=result.tier
+)
+
+# ❌ WRONG — unstructured string
+print(f"Scored deployment: {result.score}")
+```
+
+---
+
+## 💬 SLACK MESSAGE RULES
+
+### Always use Block Kit — never plain text for notifications
+```python
+# Every Slack notification must use blocks
+# Structure: Header → Context bar → Divider → Content → Actions
+
+# Colour coding (attachment color field):
+RISK_COLORS = {
+    "CRITICAL": "#E74C3C",   # red
+    "HIGH":     "#E67E22",   # orange
+    "MEDIUM":   "#F1C40F",   # yellow
+    "LOW":      "#2ECC71",   # green
+}
+```
+
+### Always include action buttons
+Every Slack message must have at minimum:
+- Link to the source (build URL, incident URL, etc.)
+- One actionable button (Re-run, View Details, Acknowledge)
+
+### DM the relevant engineer for high-confidence, high-severity findings
+```python
+# Lookup by email — works when company email == Slack login
+user = slack_client.users_lookupByEmail(email=event.commit_author_email)
+```
+
+---
+
+## 🏗️ INFRASTRUCTURE RULES
+
+### Every new AWS resource needs:
+1. Terraform definition in `infra/terraform/`
+2. Least-privilege IAM policy
+3. Tags: `project=eip`, `pillar=<pillar-name>`, `env=<environment>`
+4. CloudWatch alarm for error rate
+
+### DynamoDB tables always have:
+- Point-in-time recovery enabled
+- TTL on ephemeral data (build logs, raw events)
+- At least one GSI for the most common query pattern
+
+### Lambda functions:
+- Max timeout: 60 seconds (LLM calls need ~15s)
+- Memory: 512MB minimum
+- Always in VPC if accessing DynamoDB/Neptune
+- Dead letter queue on all async functions
+
+---
+
+## 🔁 THE FEEDBACK LOOP — MOST CRITICAL DESIGN PRINCIPLE
+
+The entire platform gets smarter over time through feedback loops.
+Never break these connections:
+
+```
+1. Deployment scored (risk_score recorded)
+        ↓
+2. Deployment happens (outcome unknown)
+        ↓
+3. If incident fires within 2 hours:
+   PagerDuty webhook → incident_linker worker
+        ↓
+4. incident_linker finds deployment → marks resulted_in_incident=True
+        ↓
+5. Risk model recalibration job runs weekly:
+   → Which factors predicted incidents?
+   → Increase their weight
+   → Which factors were false positives?
+   → Decrease their weight
+        ↓
+6. Smarter scoring next week
+```
+
+Any code change that breaks steps 3-6 is a critical regression.
+Always test the feedback loop in integration tests.
+
+---
+
+## 🗣️ NATURAL LANGUAGE QUERY ENGINE — SPECIAL RULES
+
+This is the crown jewel. Treat it with care.
+
+```python
+# intelligence/nlq_engine.py
+# Routes questions to the right pillar(s) and synthesises answers
+
+# Every question goes through this pipeline:
+# 1. Intent classification (which pillar(s) does this need?)
+# 2. Context enrichment (extract service names, time ranges, etc.)
+# 3. Parallel data fetch from relevant pillars
+# 4. Claude synthesis of multi-pillar answer
+# 5. Source attribution (where did this answer come from?)
+
+# Supported question types (always expanding):
+INTENT_TYPES = [
+    "deployment_risk_query",      # "Is it safe to deploy X?"
+    "blast_radius_query",         # "What breaks if Y goes down?"
+    "incident_pattern_query",     # "Why does X keep having incidents?"
+    "cost_query",                 # "Why did costs go up?"
+    "compliance_query",           # "Are we compliant with X?"
+    "team_health_query",          # "Which teams need attention?"
+    "architecture_query",         # "What does service X depend on?"
+    "general_platform_query",     # catch-all
+]
+```
+
+---
+
+## 🚫 THINGS NEVER TO DO
+
+- Never call Claude API directly — always use `core/llm.py`
+- Never use `table.scan()` on DynamoDB
+- Never store credentials in code, config files, or environment variables
+- Never make synchronous calls inside webhook handlers
+- Never send raw, untruncated logs to Claude
+- Never skip structured logging — always use structlog
+- Never create AWS resources outside of Terraform
+- Never write pillar-specific code that bypasses the event bus for cross-pillar communication
+- Never hardcode service tier mappings in more than one place (lives in `core/models.py`)
+- Never break the feedback loop (incident → deployment linkage)
+- Never return plain text from APIs — always use the APIResponse envelope
+- Never test against real AWS/Slack/Jenkins in unit tests
+
+---
+
+## ✅ DEFINITION OF DONE
+
+A feature is done when:
+- [ ] Unit tests pass (100% coverage on scoring logic)
+- [ ] Integration test with fixtures passes
+- [ ] Structured logging added
+- [ ] Slack notification implemented
+- [ ] Terraform for any new AWS resources
+- [ ] Feedback loop connection maintained
+- [ ] API endpoint documented with OpenAPI description
+- [ ] Added to NLQ engine intent router if user-facing
+
+---
+
+## 💡 WHEN IN DOUBT, ASK:
+
+1. Does this make the platform smarter over time, or is it a one-shot script?
+2. Does this connect to at least one other pillar via the event bus?
+3. Would a CTO or engineering manager find this output immediately useful?
+4. Is the feedback loop intact?
+
+If the answer to any of these is no — rethink the approach.
+
+---
+
+## 📌 QUICK REFERENCE
+
+```
+Central LLM wrapper:     core/llm.py
+Shared data models:      core/models.py
+Secrets helper:          core/secrets.py
+Event bus:               core/event_bus.py
+AWS multi-account:       integrations/aws/multi_account.py
+Slack client:            integrations/slack.py
+NLQ engine:              intelligence/nlq_engine.py
+
+Risk scoring:            pillars/risk_engine/scorer.py
+Architecture graph:      pillars/architecture_map/graph_builder.py
+Incident patterns:       pillars/incident_intelligence/pattern_detector.py
+Cost narrator:           pillars/cost_intelligence/narrator.py
+Compliance scanner:      pillars/compliance/scanner.py
+```
+
+---
+# End of .cursorrules
+# Build something remarkable.
+# ============================================================
