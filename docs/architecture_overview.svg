@@ -1,123 +1,171 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1050" viewBox="0 0 1900 1050">
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1020" viewBox="0 0 1800 1020">
   <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#313131"/>
     </marker>
     <style>
-      .title { font: 700 30px Arial, sans-serif; fill: #0f172a; }
-      .subtitle { font: 400 16px Arial, sans-serif; fill: #334155; }
-      .node-title { font: 700 15px Arial, sans-serif; fill: #0f172a; }
-      .node-sub { font: 400 12px Arial, sans-serif; fill: #334155; }
-      .edge { stroke: #334155; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
-      .dashed { stroke-dasharray: 8 6; }
-      .box { rx: 10; ry: 10; stroke: #94a3b8; stroke-width: 1.8; }
+      .bg { fill: #ececec; }
+      .node {
+        fill: #e8e7f4;
+        stroke: #b6a8ff;
+        stroke-width: 1.4;
+      }
+      .edge {
+        fill: none;
+        stroke: #313131;
+        stroke-width: 1.35;
+        marker-end: url(#arrow);
+      }
+      .edge-dashed {
+        fill: none;
+        stroke: #666666;
+        stroke-width: 1.2;
+        stroke-dasharray: 3 3;
+        marker-end: url(#arrow);
+      }
+      .text {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 18px;
+        fill: #2f2f2f;
+        text-anchor: middle;
+      }
+      .small {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 32px;
+        fill: #444444;
+        text-anchor: middle;
+      }
     </style>
   </defs>
 
-  <rect x="0" y="0" width="1900" height="1050" fill="#f8fafc"/>
-  <text x="40" y="46" class="title">Engineering Intelligence Platform (EIP) - Architecture Overview</text>
-  <text x="40" y="74" class="subtitle">Stub-mode operational architecture with live-mode substitution points</text>
+  <rect class="bg" x="0" y="0" width="1800" height="1020"/>
 
-  <rect class="box" x="60" y="120" width="250" height="90" fill="#e2e8f0"/>
-  <text x="82" y="156" class="node-title">User / Platform Consumer</text>
-  <text x="82" y="180" class="node-sub">CLI / API clients / UI</text>
+  <!-- Nodes -->
+  <rect class="node" x="90" y="280" width="220" height="46"/>
+  <text class="text" x="200" y="308">User or Platform Consumer</text>
 
-  <rect class="box" x="370" y="120" width="360" height="90" fill="#dbeafe"/>
-  <text x="392" y="156" class="node-title">FastAPI API Layer</text>
-  <text x="392" y="180" class="node-sub">eip/api/main.py + routers</text>
+  <rect class="node" x="350" y="275" width="230" height="68"/>
+  <text class="text" x="465" y="306">FastAPI API Layer</text>
+  <text class="text" x="465" y="331">(eip/api/main.py)</text>
 
-  <rect class="box" x="60" y="260" width="250" height="90" fill="#e2e8f0"/>
-  <text x="82" y="296" class="node-title">Workers / Async Flows</text>
-  <text x="82" y="320" class="node-sub">deployment, incident, cost, graph</text>
+  <rect class="node" x="95" y="845" width="210" height="48"/>
+  <text class="text" x="200" y="875">Workers and Async Flows</text>
 
-  <rect class="box" x="790" y="40" width="280" height="70" fill="#fee2e2"/>
-  <text x="810" y="70" class="node-title">Pillar 1: Risk Engine</text>
-  <text x="810" y="90" class="node-sub">scorer + explainer</text>
+  <rect class="node" x="640" y="120" width="190" height="48"/>
+  <text class="text" x="735" y="150">Risk Engine (Pillar 1)</text>
 
-  <rect class="box" x="790" y="130" width="280" height="70" fill="#ffedd5"/>
-  <text x="810" y="160" class="node-title">Pillar 2: Architecture Map</text>
-  <text x="810" y="180" class="node-sub">graph + query engine</text>
+  <rect class="node" x="630" y="220" width="220" height="48"/>
+  <text class="text" x="740" y="250">Architecture Map (Pillar 2)</text>
 
-  <rect class="box" x="790" y="220" width="280" height="70" fill="#fef9c3"/>
-  <text x="810" y="250" class="node-title">Pillar 3: Incident Intel</text>
-  <text x="810" y="270" class="node-sub">linking + patterns + trajectory</text>
+  <rect class="node" x="625" y="310" width="230" height="66"/>
+  <text class="text" x="740" y="342">Incident Intelligence (Pillar</text>
+  <text class="text" x="740" y="366">3)</text>
 
-  <rect class="box" x="790" y="310" width="280" height="70" fill="#dcfce7"/>
-  <text x="810" y="340" class="node-title">Pillar 4: Cost Intel</text>
-  <text x="810" y="360" class="node-sub">anomalies + optimizer + reports</text>
+  <rect class="node" x="625" y="418" width="230" height="48"/>
+  <text class="text" x="740" y="448">Cost Intelligence (Pillar 4)</text>
 
-  <rect class="box" x="790" y="400" width="280" height="70" fill="#e0f2fe"/>
-  <text x="810" y="430" class="node-title">Pillar 5: Compliance</text>
-  <text x="810" y="450" class="node-sub">scanner + policy + drift</text>
+  <rect class="node" x="625" y="515" width="230" height="64"/>
+  <text class="text" x="740" y="545">Compliance Copilot (Pillar</text>
+  <text class="text" x="740" y="569">5)</text>
 
-  <rect class="box" x="790" y="490" width="280" height="70" fill="#ede9fe"/>
-  <text x="810" y="520" class="node-title">NLQ Engine</text>
-  <text x="810" y="540" class="node-sub">intent + synthesis</text>
+  <rect class="node" x="605" y="632" width="260" height="66"/>
+  <text class="text" x="735" y="662">NLQ Engine</text>
+  <text class="text" x="735" y="686">(eip/intelligence/nlq_engine.py)</text>
 
-  <rect class="box" x="1140" y="235" width="280" height="95" fill="#fae8ff"/>
-  <text x="1162" y="272" class="node-title">Provider Registry</text>
-  <text x="1162" y="296" class="node-sub">select stub/live providers</text>
-  <text x="1162" y="314" class="node-sub">response metadata</text>
+  <rect class="node" x="625" y="746" width="230" height="92"/>
+  <text class="text" x="740" y="775">platform.auto.tfvars and</text>
+  <text class="text" x="740" y="799">env vars</text>
+  <text class="text" x="740" y="823">(eip/core/settings.py)</text>
 
-  <rect class="box" x="1490" y="180" width="320" height="90" fill="#f0fdf4"/>
-  <text x="1512" y="216" class="node-title">Stub Providers (Current)</text>
-  <text x="1512" y="240" class="node-sub">deterministic fixture-like data</text>
+  <rect class="node" x="915" y="225" width="230" height="68"/>
+  <text class="text" x="1030" y="257">LLM Wrapper</text>
+  <text class="text" x="1030" y="281">(eip/core/llm.py)</text>
 
-  <rect class="box" x="1490" y="320" width="320" height="90" fill="#fff7ed"/>
-  <text x="1512" y="356" class="node-title">Live Providers (Pending)</text>
-  <text x="1512" y="380" class="node-sub">real AWS + external integrations</text>
+  <rect class="node" x="915" y="430" width="230" height="92"/>
+  <text class="text" x="1030" y="463">Store Layers</text>
+  <text class="text" x="1030" y="487">(historical_db.py and</text>
+  <text class="text" x="1030" y="511">incident_db.py)</text>
 
-  <rect class="box" x="370" y="560" width="360" height="110" fill="#f1f5f9"/>
-  <text x="392" y="596" class="node-title">Config Layer</text>
-  <text x="392" y="620" class="node-sub">platform.auto.tfvars + env vars</text>
-  <text x="392" y="642" class="node-sub">eip/core/settings.py</text>
+  <rect class="node" x="905" y="610" width="250" height="74"/>
+  <text class="text" x="1030" y="643">Provider Registry</text>
+  <text class="text" x="1030" y="667">(eip/core/provider_registry.py)</text>
 
-  <rect class="box" x="790" y="620" width="260" height="90" fill="#f8fafc"/>
-  <text x="812" y="656" class="node-title">Event Bus Wrapper</text>
-  <text x="812" y="680" class="node-sub">EventBridge / stub log emit</text>
+  <rect class="node" x="905" y="740" width="230" height="66"/>
+  <text class="text" x="1020" y="770">Secrets Wrapper</text>
+  <text class="text" x="1020" y="794">(eip/core/secrets.py)</text>
 
-  <rect class="box" x="1100" y="620" width="280" height="90" fill="#f8fafc"/>
-  <text x="1122" y="656" class="node-title">Store Layers</text>
-  <text x="1122" y="680" class="node-sub">HistoricalDB + IncidentDB</text>
+  <rect class="node" x="915" y="842" width="230" height="64"/>
+  <text class="text" x="1030" y="871">Event Bus Wrapper</text>
+  <text class="text" x="1030" y="895">(eip/core/event_bus.py)</text>
 
-  <rect class="box" x="1430" y="620" width="280" height="90" fill="#f8fafc"/>
-  <text x="1452" y="656" class="node-title">Secrets Wrapper</text>
-  <text x="1452" y="680" class="node-sub">Secrets Manager / stub values</text>
+  <rect class="node" x="1265" y="562" width="210" height="66"/>
+  <text class="text" x="1370" y="593">Stub Providers</text>
+  <text class="text" x="1370" y="617">(eip/stubs/providers.py)</text>
 
-  <rect class="box" x="1100" y="500" width="280" height="90" fill="#f8fafc"/>
-  <text x="1122" y="536" class="node-title">LLM Wrapper</text>
-  <text x="1122" y="560" class="node-sub">Anthropic live or stub JSON</text>
+  <rect class="node" x="1275" y="745" width="200" height="48"/>
+  <text class="text" x="1375" y="775">Live Providers (pending)</text>
 
-  <rect class="box" x="1490" y="500" width="320" height="90" fill="#f8fafc"/>
-  <text x="1512" y="536" class="node-title">External Systems (Live)</text>
-  <text x="1512" y="560" class="node-sub">AWS, Slack, PagerDuty, Jenkins</text>
+  <rect class="node" x="1528" y="430" width="230" height="66"/>
+  <text class="text" x="1643" y="461">Stub Risk, Incident, Cost,</text>
+  <text class="text" x="1643" y="485">and Compliance data</text>
 
-  <path class="edge" d="M 310 165 L 370 165"/>
-  <path class="edge" d="M 310 305 L 370 165"/>
+  <rect class="node" x="1528" y="542" width="230" height="66"/>
+  <text class="text" x="1643" y="573">Stub Architecture graph</text>
+  <text class="text" x="1643" y="597">snapshot</text>
 
-  <path class="edge" d="M 730 165 L 790 75"/>
-  <path class="edge" d="M 730 165 L 790 165"/>
-  <path class="edge" d="M 730 165 L 790 255"/>
-  <path class="edge" d="M 730 165 L 790 345"/>
-  <path class="edge" d="M 730 165 L 790 435"/>
-  <path class="edge" d="M 730 165 L 790 525"/>
+  <rect class="node" x="1528" y="654" width="230" height="66"/>
+  <text class="text" x="1643" y="687">Stub NLQ data adapters</text>
 
-  <path class="edge" d="M 730 165 L 1140 282"/>
-  <path class="edge" d="M 310 305 L 1140 282"/>
-  <path class="edge" d="M 1070 525 L 1100 545"/>
-  <path class="edge" d="M 1070 255 L 1100 665"/>
-  <path class="edge" d="M 1070 75 L 1100 665"/>
+  <rect class="node" x="1528" y="772" width="230" height="90"/>
+  <text class="text" x="1643" y="804">AWS Services planned:</text>
+  <text class="text" x="1643" y="828">DynamoDB, EventBridge,</text>
+  <text class="text" x="1643" y="852">Neptune, Cost Explorer</text>
 
-  <path class="edge" d="M 1420 282 L 1490 225"/>
-  <path class="edge dashed" d="M 1420 282 L 1490 365"/>
-  <text x="1428" y="338" class="node-sub">future switch</text>
+  <rect class="node" x="1528" y="900" width="230" height="94"/>
+  <text class="text" x="1643" y="932">External integrations</text>
+  <text class="text" x="1643" y="956">planned: Slack, PagerDuty,</text>
+  <text class="text" x="1643" y="980">Jenkins, GitHub</text>
 
-  <path class="edge" d="M 730 615 L 790 665"/>
-  <path class="edge" d="M 730 615 L 1100 665"/>
-  <path class="edge" d="M 730 615 L 1430 665"/>
-  <path class="edge" d="M 730 615 L 1140 282"/>
+  <!-- Edges -->
+  <path class="edge" d="M 310 303 L 350 303"/>
+  <path class="edge" d="M 200 845 C 250 760, 320 500, 440 343"/>
 
-  <path class="edge" d="M 1810 365 L 1810 545"/>
-  <path class="edge" d="M 1810 225 L 1810 545"/>
+  <path class="edge" d="M 580 300 C 610 250, 620 190, 640 144"/>
+  <path class="edge" d="M 580 300 C 610 270, 620 250, 630 244"/>
+  <path class="edge" d="M 580 309 C 610 322, 616 338, 625 343"/>
+  <path class="edge" d="M 580 320 C 610 380, 618 430, 625 442"/>
+  <path class="edge" d="M 580 330 C 610 420, 620 515, 625 548"/>
+  <path class="edge" d="M 580 338 C 615 500, 635 615, 605 665"/>
+
+  <path class="edge" d="M 580 337 C 690 470, 790 560, 905 647"/>
+  <path class="edge" d="M 865 665 C 880 665, 890 655, 905 647"/>
+  <path class="edge" d="M 305 870 C 500 868, 700 820, 905 647"/>
+
+  <path class="edge" d="M 305 870 C 500 874, 710 874, 915 874"/>
+  <path class="edge" d="M 305 870 C 520 850, 760 700, 915 476"/>
+
+  <path class="edge" d="M 855 792 C 875 760, 885 700, 905 647"/>
+  <path class="edge" d="M 855 792 C 880 772, 890 772, 905 773"/>
+  <path class="edge" d="M 855 792 C 875 860, 890 875, 915 874"/>
+  <path class="edge" d="M 855 792 C 890 720, 910 620, 915 476"/>
+
+  <path class="edge" d="M 830 144 C 885 148, 910 190, 915 240"/>
+  <path class="edge" d="M 855 343 C 885 335, 900 300, 915 270"/>
+  <path class="edge" d="M 855 442 C 885 430, 900 340, 915 285"/>
+  <path class="edge" d="M 865 665 C 885 640, 900 350, 915 285"/>
+
+  <path class="edge" d="M 830 144 C 900 190, 940 320, 995 430"/>
+  <path class="edge" d="M 855 343 C 890 355, 915 400, 955 430"/>
+
+  <path class="edge" d="M 1155 647 C 1220 620, 1240 605, 1265 595"/>
+  <path class="edge-dashed" d="M 1155 668 C 1215 700, 1238 740, 1275 769"/>
+  <text class="small" x="1215" y="772">future switch</text>
+
+  <path class="edge" d="M 1475 595 C 1500 560, 1508 505, 1528 463"/>
+  <path class="edge" d="M 1475 595 C 1500 588, 1508 583, 1528 575"/>
+  <path class="edge" d="M 1475 595 C 1500 620, 1508 665, 1528 687"/>
+
+  <path class="edge" d="M 1475 769 C 1500 785, 1508 802, 1528 817"/>
+  <path class="edge" d="M 1475 769 C 1500 830, 1510 900, 1528 947"/>
 </svg>
