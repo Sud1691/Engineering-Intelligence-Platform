@@ -31,3 +31,12 @@ provision_core_resources = false
 create_worker_role = false
 create_integrations_secret = false
 create_integrations_secret_version = false
+enable_worker_lambdas = false
+enable_ecs_api = false
+
+# Live runtime package/image inputs (only required when enabling resources above)
+eip_workers_zip_path = "../../dist/eip-workers.zip"
+# eip_docker_image = "123456789012.dkr.ecr.us-east-1.amazonaws.com/eip-api:latest"
+# vpc_id = "vpc-xxxxxxxx"
+# public_subnet_ids = ["subnet-public-a", "subnet-public-b"]
+# private_subnet_ids = ["subnet-private-a", "subnet-private-b"]

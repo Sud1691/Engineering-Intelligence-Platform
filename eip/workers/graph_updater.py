@@ -4,6 +4,8 @@ Async worker to keep the architecture map fresh.
 
 from __future__ import annotations
 
+import asyncio
+import json
 from typing import Any, Dict
 
 import structlog
@@ -62,3 +64,21 @@ async def process_architecture_update(event_payload: Dict[str, Any]) -> None:
         service_count=graph.number_of_nodes(),
         dependency_count=graph.number_of_edges(),
     )
+
+
+def _event_to_payload(event: Dict[str, Any]) -> Dict[str, Any]:
+    detail = event.get("detail")
+    if isinstance(detail, str):
+        try:
+            detail = json.loads(detail)
+        except ValueError:
+            detail = {}
+    if isinstance(detail, dict):
+        return detail
+    return event if isinstance(event, dict) else {}
+
+
+def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
+    payload = _event_to_payload(event)
+    asyncio.run(process_architecture_update(payload))
+    return {"statusCode": 200, "processed": True}

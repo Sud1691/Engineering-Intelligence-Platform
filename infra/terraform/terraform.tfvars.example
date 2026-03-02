@@ -15,5 +15,11 @@ provision_core_resources = true
 create_worker_role = true
 create_integrations_secret = true
 create_integrations_secret_version = false
+enable_worker_lambdas = true
+enable_ecs_api = false
+# eip_docker_image = "123456789012.dkr.ecr.us-east-1.amazonaws.com/eip-api:latest"
+# vpc_id = "vpc-xxxxxxxx"
+# public_subnet_ids = ["subnet-public-a", "subnet-public-b"]
+# private_subnet_ids = ["subnet-private-a", "subnet-private-b"]
 
 environment = "dev"

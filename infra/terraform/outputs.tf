@@ -45,3 +45,18 @@ output "integrations_secret_arn" {
   description = "Created secret ARN when create_integrations_secret=true."
   value       = try(aws_secretsmanager_secret.integrations[0].arn, null)
 }
+
+output "incident_linker_lambda_arn" {
+  description = "Incident linker Lambda ARN when worker lambdas are enabled."
+  value       = try(aws_lambda_function.incident_linker[0].arn, null)
+}
+
+output "graph_updater_lambda_arn" {
+  description = "Graph updater Lambda ARN when worker lambdas are enabled."
+  value       = try(aws_lambda_function.graph_updater[0].arn, null)
+}
+
+output "eip_api_alb_dns_name" {
+  description = "Public DNS name for EIP API ALB when ECS API is enabled."
+  value       = try(aws_lb.eip_api[0].dns_name, null)
+}

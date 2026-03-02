@@ -4,6 +4,8 @@ Incident linker worker. The most critical part of the feedback loop.
 
 from __future__ import annotations
 
+import asyncio
+import json
 from datetime import datetime, timezone
 from typing import Any, Dict
 
@@ -131,6 +133,18 @@ async def process_pagerduty_webhook(payload: Dict[str, Any]) -> None:
         )
 
 
+def _event_to_payload(event: Dict[str, Any]) -> Dict[str, Any]:
+    detail = event.get("detail")
+    if isinstance(detail, str):
+        try:
+            detail = json.loads(detail)
+        except ValueError:
+            detail = {}
+    if isinstance(detail, dict):
+        return detail
+    return event if isinstance(event, dict) else {}
+
+
 async def link_incident_to_deployment(
     incident_id: str,
     service_name: str,
@@ -213,3 +227,25 @@ async def link_incident_to_deployment(
             "linked_at": linked_at,
         },
     )
+
+
+def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
+    payload = _event_to_payload(event)
+    if isinstance(payload.get("event"), dict):
+        asyncio.run(process_pagerduty_webhook(payload))
+    elif payload.get("incident_id") and payload.get("service_name"):
+        asyncio.run(
+            link_incident_to_deployment(
+                incident_id=str(payload["incident_id"]),
+                service_name=str(payload["service_name"]),
+                linked_at=str(
+                    payload.get("linked_at")
+                    or payload.get("triggered_at")
+                    or datetime.now(timezone.utc).isoformat()
+                ),
+                event_type=str(payload.get("event_type", "incident.triggered")),
+            )
+        )
+    else:
+        log.warning("incident_linker_lambda_unhandled_payload", payload=payload)
+    return {"statusCode": 200, "processed": True}

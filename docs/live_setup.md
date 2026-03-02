@@ -1,8 +1,8 @@
 # EIP Live Setup Guide (Replacing Stubbed Objects)
 
 This document lists every stubbed dependency that must be replaced for full live operation.
-For local usage and step-by-step startup, see [setup.md](/Users/sudhanshujain/Desktop/automation_idea/setup.md).
-For architecture, see [docs/architecture.md](/Users/sudhanshujain/Desktop/automation_idea/docs/architecture.md).
+For local usage and step-by-step startup, see [setup.md](../setup.md).
+For architecture, see [docs/architecture.md](architecture.md).
 
 Runtime guardrails:
 - `EIP_RUNTIME_MODE=stub` is default.
@@ -14,8 +14,8 @@ Runtime guardrails:
 - Environment variables:
   - `EIP_RUNTIME_MODE`
   - `EIP_ENABLE_LIVE_MODE`
-- Live provider implementations replacing stub classes in [eip/stubs/providers.py](/Users/sudhanshujain/Desktop/automation_idea/eip/stubs/providers.py)
-- Registry wiring update in [eip/core/provider_registry.py](/Users/sudhanshujain/Desktop/automation_idea/eip/core/provider_registry.py)
+- Registry wiring in [eip/core/provider_registry.py](../eip/core/provider_registry.py)
+- Live provider implementations in [eip/stubs/live_providers](../eip/stubs/live_providers)
 
 ### Replace Stub Targets
 - `StubRiskDataProvider` -> `LiveRiskDataProvider`
@@ -37,7 +37,7 @@ Runtime guardrails:
 - Add Jenkins/GitHub/API tokens as integration scope expands
 
 ### Stub Replacement Location
-- Current stub fallback: [eip/core/secrets.py](/Users/sudhanshujain/Desktop/automation_idea/eip/core/secrets.py)
+- Current stub fallback: [eip/core/secrets.py](../eip/core/secrets.py)
 - Replace with live Secrets Manager payloads and remove fallback assumptions for production.
 
 ## 3. Event Bus
@@ -49,7 +49,7 @@ Runtime guardrails:
 - `events:PutEvents` on the target bus
 
 ### Stub Replacement Location
-- Current stub emit path: [eip/core/event_bus.py](/Users/sudhanshujain/Desktop/automation_idea/eip/core/event_bus.py)
+- Current stub emit path: [eip/core/event_bus.py](../eip/core/event_bus.py)
 - Live mode should already call `put_events`; validate permissions + DLQ/retry policy.
 
 ## 4. Deployment Risk Persistence
@@ -73,7 +73,7 @@ Runtime guardrails:
 - `dynamodb:GetItem` (if needed for diagnostics)
 
 ### Stub Replacement Location
-- Current stub fallback/in-memory: [historical_db.py](/Users/sudhanshujain/Desktop/automation_idea/eip/pillars/risk_engine/store/historical_db.py)
+- Current stub fallback/in-memory: [historical_db.py](../eip/pillars/risk_engine/store/historical_db.py)
 
 ## 5. Incident Persistence & Linking
 
@@ -91,8 +91,8 @@ Runtime guardrails:
 - `dynamodb:GetItem`
 
 ### Stub Replacement Location
-- Current stub fallback/in-memory: [incident_db.py](/Users/sudhanshujain/Desktop/automation_idea/eip/pillars/risk_engine/store/incident_db.py)
-- Worker linkage logic: [incident_linker.py](/Users/sudhanshujain/Desktop/automation_idea/eip/workers/incident_linker.py)
+- Current stub fallback/in-memory: [incident_db.py](../eip/pillars/risk_engine/store/incident_db.py)
+- Worker linkage logic: [incident_linker.py](../eip/workers/incident_linker.py)
 
 ## 6. LLM (Anthropic)
 
@@ -101,7 +101,7 @@ Runtime guardrails:
 - Valid API key delivery via secure secret injection
 
 ### Stub Replacement Location
-- Stub response mode in [llm.py](/Users/sudhanshujain/Desktop/automation_idea/eip/core/llm.py)
+- Stub response mode in [llm.py](../eip/core/llm.py)
 - In live mode, verify:
   - model access
   - timeouts/retries
@@ -117,7 +117,7 @@ Runtime guardrails:
 - Secret key: `slack_bot_token`, `slack_default_channel`
 
 ### Stub Replacement Location
-- Stub short-circuit in [slack.py](/Users/sudhanshujain/Desktop/automation_idea/eip/integrations/slack.py)
+- Stub short-circuit in [slack.py](../eip/integrations/slack.py)
 
 ## 8. Architecture Data Sources
 
@@ -128,10 +128,10 @@ Runtime guardrails:
 - Optional service catalog for ownership/team mapping
 
 ### Stub Replacement Location
-- Provider data currently static in [eip/stubs/providers.py](/Users/sudhanshujain/Desktop/automation_idea/eip/stubs/providers.py)
+- Provider data currently static in [eip/stubs/providers.py](../eip/stubs/providers.py)
 - Router/worker consumers:
-  - [architecture.py](/Users/sudhanshujain/Desktop/automation_idea/eip/api/routers/architecture.py)
-  - [graph_updater.py](/Users/sudhanshujain/Desktop/automation_idea/eip/workers/graph_updater.py)
+  - [architecture.py](../eip/api/routers/architecture.py)
+  - [graph_updater.py](../eip/workers/graph_updater.py)
 
 ## 9. Cost Data Sources
 
@@ -140,10 +140,10 @@ Runtime guardrails:
 - Resource utilization metrics source (CloudWatch/Prometheus/Wavefront)
 
 ### Stub Replacement Location
-- Static source currently in [eip/stubs/providers.py](/Users/sudhanshujain/Desktop/automation_idea/eip/stubs/providers.py)
+- Static source currently in [eip/stubs/providers.py](../eip/stubs/providers.py)
 - Consumers:
-  - [cost.py](/Users/sudhanshujain/Desktop/automation_idea/eip/api/routers/cost.py)
-  - [cost_analyser.py](/Users/sudhanshujain/Desktop/automation_idea/eip/workers/cost_analyser.py)
+  - [cost.py](../eip/api/routers/cost.py)
+  - [cost_analyser.py](../eip/workers/cost_analyser.py)
 
 ## 10. Compliance Data Sources
 
@@ -153,30 +153,33 @@ Runtime guardrails:
 - Policy bundle source of truth
 
 ### Stub Replacement Location
-- Static violations/account configs in [eip/stubs/providers.py](/Users/sudhanshujain/Desktop/automation_idea/eip/stubs/providers.py)
+- Static violations/account configs in [eip/stubs/providers.py](../eip/stubs/providers.py)
 - Consumers:
-  - [compliance.py](/Users/sudhanshujain/Desktop/automation_idea/eip/api/routers/compliance.py)
-  - [compliance_scanner.py](/Users/sudhanshujain/Desktop/automation_idea/eip/workers/compliance_scanner.py)
+  - [compliance.py](../eip/api/routers/compliance.py)
+  - [compliance_scanner.py](../eip/workers/compliance_scanner.py)
 
 ## 11. Infrastructure (Now Added, Core Scope)
 
 Terraform module now exists at:
-- [infra/terraform](/Users/sudhanshujain/Desktop/automation_idea/infra/terraform)
+- [infra/terraform](../infra/terraform)
 
 Implemented in module baseline:
-- EventBridge bus + baseline rules in [eventbridge.tf](/Users/sudhanshujain/Desktop/automation_idea/infra/terraform/eventbridge.tf)
-- DynamoDB tables in [dynamodb.tf](/Users/sudhanshujain/Desktop/automation_idea/infra/terraform/dynamodb.tf)
-- Worker IAM role/policy in [iam.tf](/Users/sudhanshujain/Desktop/automation_idea/infra/terraform/iam.tf)
-- Optional integrations secret container in [secrets.tf](/Users/sudhanshujain/Desktop/automation_idea/infra/terraform/secrets.tf)
+- EventBridge bus + baseline rules in [eventbridge.tf](../infra/terraform/eventbridge.tf)
+- EventBridge targets + Lambda invoke permissions in [eventbridge.tf](../infra/terraform/eventbridge.tf)
+- DynamoDB tables in [dynamodb.tf](../infra/terraform/dynamodb.tf)
+- Worker IAM role/policy in [iam.tf](../infra/terraform/iam.tf)
+- Worker Lambdas + DLQ/alarm in [lambda.tf](../infra/terraform/lambda.tf)
+- ECS/Fargate API scaffolding in [ecs.tf](../infra/terraform/ecs.tf)
+- Optional integrations secret container in [secrets.tf](../infra/terraform/secrets.tf)
 
 Still required for full live rollout:
-- EventBridge targets bound to deployed worker runtimes (Lambda/SQS/ECS)
-- API/Lambda/ECS deployment modules and packaging pipeline wiring
+- Build/deploy pipeline to produce worker package (`dist/eip-workers.zip`)
+- VPC/subnet/image parameters and rollout automation for ECS
 - Monitoring/alarms and remote Terraform backend/state-locking bootstrap
 
 ## 12. Validation Checklist Before Switching To Live
 
-- [ ] All live provider classes implemented and bound in provider registry.
+- [ ] All live providers return production data (not fallback stubs) for every pillar.
 - [ ] Secrets exist and are readable from runtime role.
 - [ ] EventBridge write path validated.
 - [ ] DynamoDB tables created with expected keys/indexes.

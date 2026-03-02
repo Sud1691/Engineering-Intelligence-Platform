@@ -132,3 +132,63 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "enable_worker_lambdas" {
+  description = "Provision worker Lambda functions and supporting DLQ/alarm resources."
+  type        = bool
+  default     = false
+}
+
+variable "eip_workers_zip_path" {
+  description = "Path to worker deployment package zip."
+  type        = string
+  default     = "../../dist/eip-workers.zip"
+}
+
+variable "lambda_timeout_seconds" {
+  description = "Default Lambda timeout in seconds."
+  type        = number
+  default     = 300
+}
+
+variable "lambda_memory_mb" {
+  description = "Default Lambda memory in MB."
+  type        = number
+  default     = 512
+}
+
+variable "enable_ecs_api" {
+  description = "Provision ECS/Fargate resources for the EIP API."
+  type        = bool
+  default     = false
+}
+
+variable "eip_docker_image" {
+  description = "Docker image URI for eip-api container."
+  type        = string
+  default     = null
+}
+
+variable "vpc_id" {
+  description = "VPC ID used for ALB/ECS networking."
+  type        = string
+  default     = null
+}
+
+variable "public_subnet_ids" {
+  description = "Public subnet IDs for ALB."
+  type        = list(string)
+  default     = []
+}
+
+variable "private_subnet_ids" {
+  description = "Private subnet IDs for ECS tasks."
+  type        = list(string)
+  default     = []
+}
+
+variable "ecs_desired_count" {
+  description = "Desired number of API tasks in ECS service."
+  type        = number
+  default     = 2
+}

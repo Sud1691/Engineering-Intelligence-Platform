@@ -8,32 +8,32 @@ This diagram shows the current stub-mode product architecture and the live-mode 
 
 ```mermaid
 flowchart LR
-  U["User or Platform Consumer"] --> A["FastAPI API Layer (eip/api/main.py)"]
+  U["User or Platform Consumer"] --> A["FastAPI API Layer (../eip/api/main.py)"]
   C["Workers and Async Flows"] --> A
   A --> R["Risk Engine (Pillar 1)"]
   A --> M["Architecture Map (Pillar 2)"]
   A --> I["Incident Intelligence (Pillar 3)"]
   A --> K["Cost Intelligence (Pillar 4)"]
   A --> S["Compliance Copilot (Pillar 5)"]
-  A --> N["NLQ Engine (eip/intelligence/nlq_engine.py)"]
+  A --> N["NLQ Engine (../eip/intelligence/nlq_engine.py)"]
 
-  N --> PR["Provider Registry (eip/core/provider_registry.py)"]
+  N --> PR["Provider Registry (../eip/core/provider_registry.py)"]
   A --> PR
   C --> PR
 
-  PR --> ST["Stub Providers (eip/stubs/providers.py)"]
+  PR --> ST["Stub Providers (../eip/stubs/providers.py)"]
   PR -.->|future switch| LV["Live Providers (pending)"]
 
-  CFG["platform.auto.tfvars and env vars (eip/core/settings.py)"] --> PR
-  CFG --> EB["Event Bus Wrapper (eip/core/event_bus.py)"]
+  CFG["platform.auto.tfvars and env vars (../eip/core/settings.py)"] --> PR
+  CFG --> EB["Event Bus Wrapper (../eip/core/event_bus.py)"]
   CFG --> DB["Store Layers (historical_db.py and incident_db.py)"]
-  CFG --> SEC["Secrets Wrapper (eip/core/secrets.py)"]
+  CFG --> SEC["Secrets Wrapper (../eip/core/secrets.py)"]
 
   C --> EB
   C --> DB
   R --> DB
   I --> DB
-  R --> LLM["LLM Wrapper (eip/core/llm.py)"]
+  R --> LLM["LLM Wrapper (../eip/core/llm.py)"]
   I --> LLM
   K --> LLM
   N --> LLM

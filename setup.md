@@ -46,6 +46,8 @@ provision_core_resources = false
 create_worker_role = false
 create_integrations_secret = false
 create_integrations_secret_version = false
+enable_worker_lambdas = false
+enable_ecs_api = false
 ```
 
 ## 4. Configuration Resolution Order
@@ -83,9 +85,11 @@ What this provisions:
 - DynamoDB tables for deployments, risk scores, incidents
 - Optional IAM worker role (`create_worker_role=true`)
 - Optional integrations secret container (`create_integrations_secret=true`)
+- Optional worker Lambdas + EventBridge targets (`enable_worker_lambdas=true`)
+- Optional ECS/Fargate API + ALB (`enable_ecs_api=true`, requires VPC/subnets/image)
 
 Module details:
-- [infra/terraform/README.md](/Users/sudhanshujain/Desktop/automation_idea/infra/terraform/README.md)
+- [infra/terraform/README.md](infra/terraform/README.md)
 
 ## 6. Run the API
 
@@ -159,6 +163,12 @@ curl http://localhost:8000/incidents/payments-api/trajectory
 pytest
 ```
 
+Critical integration suite:
+
+```bash
+pytest tests/integration/test_critical_cases.py -v
+```
+
 If `pytest` is unavailable:
 
 ```bash
@@ -174,7 +184,8 @@ When real infra/integrations are ready:
 4. Implement live providers in provider registry.
 
 Detailed live replacement checklist is here:
-- [docs/live_setup.md](/Users/sudhanshujain/Desktop/automation_idea/docs/live_setup.md)
+- [docs/live_setup.md](docs/live_setup.md)
+- [GO_LIVE_CHECKLIST.md](GO_LIVE_CHECKLIST.md)
 
 Architecture diagram:
-- [docs/architecture.md](/Users/sudhanshujain/Desktop/automation_idea/docs/architecture.md)
+- [docs/architecture.md](docs/architecture.md)

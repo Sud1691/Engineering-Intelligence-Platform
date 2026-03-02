@@ -16,6 +16,13 @@ from eip.core.providers import (
     RiskDataProvider,
 )
 from eip.core.settings import get_settings
+from eip.stubs.live_providers import (
+    LiveArchitectureDataProvider,
+    LiveComplianceDataProvider,
+    LiveCostDataProvider,
+    LiveIncidentDataProvider,
+    LiveRiskDataProvider,
+)
 from eip.stubs.providers import (
     StubArchitectureDataProvider,
     StubComplianceDataProvider,
@@ -97,9 +104,26 @@ def get_provider_registry() -> ProviderRegistry:
             compliance=compliance,
             nlq=nlq,
         )
-
-    raise NotImplementedError(
-        "Live provider wiring is not implemented yet. See docs/live_setup.md."
+    risk = LiveRiskDataProvider()
+    architecture = LiveArchitectureDataProvider()
+    incident = LiveIncidentDataProvider()
+    cost = LiveCostDataProvider()
+    compliance = LiveComplianceDataProvider()
+    nlq = StubNLQDataProvider(
+        risk_provider=risk,
+        architecture_provider=architecture,
+        incident_provider=incident,
+        cost_provider=cost,
+        compliance_provider=compliance,
+    )
+    return ProviderRegistry(
+        source_mode=settings.runtime_mode,
+        risk=risk,
+        architecture=architecture,
+        incident=incident,
+        cost=cost,
+        compliance=compliance,
+        nlq=nlq,
     )
 
 

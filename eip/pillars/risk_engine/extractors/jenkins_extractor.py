@@ -12,6 +12,27 @@ import structlog
 log = structlog.get_logger()
 
 
+INFRA_FLAKE_PATTERNS = (
+    "connection timed out",
+    "agent went offline",
+    "oomkilled",
+    "node is not ready",
+    "no space left on device",
+    "failed to pull image",
+    "context deadline exceeded",
+)
+
+
+def _detect_infra_flake(message: str) -> bool:
+    """
+    Detect likely infrastructure flake signatures from Jenkins logs/errors.
+    """
+    haystack = (message or "").strip().lower()
+    if not haystack:
+        return False
+    return any(pattern in haystack for pattern in INFRA_FLAKE_PATTERNS)
+
+
 class JenkinsExtractor:
     """
     Extracts risk signals from Jenkins build payloads.
@@ -26,6 +47,9 @@ class JenkinsExtractor:
         """
         # E.g., if tests passed on a retry, it's a flaky build
         retries = build_payload.get("test_retries", 0)
+        build_error = str(build_payload.get("error_message", ""))
+        if _detect_infra_flake(build_error):
+            return "high"
         if retries > 3:
             return "high"
         elif retries > 0:
