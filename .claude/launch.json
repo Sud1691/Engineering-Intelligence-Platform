@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "EIP API (stub)",
+      "runtimeExecutable": "/bin/bash",
+      "runtimeArgs": ["-c", "EIP_RUNTIME_MODE=stub PYTHONPATH=/Users/sudhanshujain/Desktop/AI\\ fun/Engineering-Intelligence-Platform /Users/sudhanshujain/Desktop/AI\\ fun/Engineering-Intelligence-Platform/.venv/bin/uvicorn eip.api.main:app --host 0.0.0.0 --port 8000"],
+      "port": 8000
+    }
+  ]
+}
