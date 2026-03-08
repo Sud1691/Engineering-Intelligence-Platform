@@ -1,5 +1,21 @@
 # EIP Test Checklist
 
+## Fresh Machine Setup
+
+### Prerequisites
+
+- Python 3.12+
+- `pip`
+
+### Setup Steps
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp platform.auto.tfvars.example platform.auto.tfvars
+```
+
 ## Start The App
 
 ```bash
